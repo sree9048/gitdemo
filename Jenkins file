@@ -1,32 +1,32 @@
 pipeline{
    agent any
     stages{
-     stage{'git checkout'}{
+     stage('git checkout'){
        steps{
          git 'https://github.com/sree9048/gitdemo.git'
         }
       }
-    stage{'compile'}{
+    stage('compile'){
        steps{
          sh 'mvn compile'
         }
       }
-    stage{'codereview'}{
+    stage('codereview'){
        steps{
          sh 'mvn pmd:pmd'
         }
       }
-    stage{'unittest'}{
+    stage('unittest'){
        steps{
          sh 'mvn test'
         }
       }
-    stage{'matriccheck'}{
+    stage('matriccheck'){
        steps{
          sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
         }
      }
-     stage{'package'}{
+     stage('package'){
        steps{
          sh 'mvn package'
         }
