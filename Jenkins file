@@ -6,27 +6,27 @@ pipeline{
          git 'https://github.com/sree9048/gitdemo.git'
         }
       }
-    stages{'compile'}{
+    stage{'compile'}{
        steps{
          sh 'mvn compile'
         }
       }
-    stages{'codereview'}{
+    stage{'codereview'}{
        steps{
          sh 'mvn pmd:pmd'
         }
       }
-    stages{'unittest'}{
+    stage{'unittest'}{
        steps{
          sh 'mvn test'
         }
       }
-    stages{'matriccheck'}{
+    stage{'matriccheck'}{
        steps{
          sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
         }
      }
-     stages{'package'}{
+     stage{'package'}{
        steps{
          sh 'mvn package'
         }
