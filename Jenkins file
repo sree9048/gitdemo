@@ -11,17 +11,17 @@ pipeline{
          sh 'mvn compile'
         }
       }
-    stage('codereview'){
+    stage('codeReview'){
        steps{
          sh 'mvn pmd:pmd'
         }
       }
-    stage('unittest'){
+    stage('unitTest'){
        steps{
          sh 'mvn test'
         }
       }
-    stage('matriccheck'){
+    stage('matricCheck'){
        steps{
          sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
         }
