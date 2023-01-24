@@ -1,0 +1,35 @@
+pipeline{
+   agent slave
+    stages{
+     stage('git checkout'){
+       steps{
+         git 'https://github.com/sree9048/gitdemo.git'
+        }
+      }
+    stages('compile'){
+       steps{
+         sh 'mvn compile'
+        }
+      }
+    stages('codereview'){
+       steps{
+         sh 'mvn pmd:pmd'
+        }
+      }
+    stages('unittest'){
+       steps{
+         sh 'mvn test'
+        }
+      }
+    stages('matriccheck'){
+       steps{
+         sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
+        }
+     }
+     stages('package'){
+       steps{
+         sh 'mvn package'
+        }
+      }
+   }
+}
