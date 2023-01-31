@@ -11,9 +11,9 @@ spec:
    type: webserver
  template:
   metadata:
-  name: mypod
-  labels:
-   type: webserver
+   name: mypod
+   labels:
+    type: webserver
   spec:
    containers:
    - name: myn1
