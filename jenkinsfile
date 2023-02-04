@@ -9,7 +9,7 @@ pipeline{
 				agent any
 				steps{
 					echo 'CLONING....'
-					git 'https://github.com/Venkatapathi84/venkat.git'
+					git 'https://github.com/sree9048/gitdemo.git'
 				}
 			}	
 			stage('compile'){
