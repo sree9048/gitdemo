@@ -6,36 +6,33 @@ pipeline{
 		agent any
 		stages{
 			stage('checkout'){
-				agent any
 				steps{
 					echo 'CLONING....'
 					git 'https://github.com/sree9048/gitdemo.git'
 				}
 			}	
 			stage('compile'){
-				agent any
 				steps{
 					echo 'COMPILING...'
 					sh 'mvn compile'
 				}
 			}
 			stage('codereview'){
-				agent any
 				steps{
 					echo 'CODEREVIEW'
 					sh 'mvn pmd:pmd'
 				}
 			}
 			stage('unitTest'){
-				agent any
 				steps{
+				      echo 'UNITTEST'
 					sh 'mvn test'
 				}
 				
 			}
 			stage('package'){
-				agent any
 				steps{
+				       echo 'PACKAGE'
 					sh 'mvn test'
 				}
 			}
