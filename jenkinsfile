@@ -3,7 +3,7 @@ pipeline{
 		jdk 'java'
 		maven 'maven'
 		}
-		agent any
+		agent none(any)
 		stages{
 			stage('checkout'){
 				agent any
@@ -19,7 +19,7 @@ pipeline{
 					sh 'mvn compile'
 				}
 			}
-			stage('codereview'){
+			stage('codeReview'){
 				agent any
 				steps{
 					echo 'CODEREVIEW'
