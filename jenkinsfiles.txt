@@ -1,0 +1,61 @@
+pipeline{
+	tools{
+		jdk 'java'
+		maven 'maven'
+		}
+		agent any
+		stages{
+			stage('checkout'){
+				agent any
+				steps{
+					echo 'CLONING....'
+					git 'https://github.com/Venkatapathi84/v.git'
+				}
+			}	
+			stage('compile'){
+				agent any
+				steps{
+					echo 'COMPILING...'
+					sh 'mvn compile'
+				}
+			}
+			stage('codereview'){
+				agent any
+				steps{
+					echo 'CODEREVIEW'
+					sh 'mvn pmd:pmd'
+				}
+			}
+			stage('unitTest'){
+				agent any
+				steps{
+					sh 'mvn test'
+				}
+				
+			}
+			/*metric test is here but pending */
+			stage('package'){
+				agent any
+				steps{
+					sh 'mvn test'
+				}
+			}
+			 stage('deploy'){
+				agent any
+				steps{
+					sh label: ' ',script: '''rm -rf docker			
+					mkdir docker
+					cd docker
+					cp /var/lib/jenkins/workspace/package/target/cloud.war .
+					cat <<EOT>> dockerfile
+					FROM tomcat
+					ADD sample.war /user/local/tomcat/webapps
+					EXPOSE 8080
+					CMD ["catalina.sh" , "run"]
+					EOT
+					sudo docker build -t myproject:$BUILD_NUMBER .
+					sudo docker run -dt -P myproject:$BUILD_NUMBER'''
+				    }
+				}		
+		}
+}
